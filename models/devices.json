@@ -1,0 +1,17 @@
+[
+  {
+    "id": "LC-001",
+    "model": "1100",
+    "status": "ready to work"
+  },
+  {
+    "id": "LC-002",
+    "model": "1100",
+    "status": "ready to work"
+  },
+  {
+    "id": "LC-003",
+    "model": "1100",
+    "status": "on TO"
+  }
+]

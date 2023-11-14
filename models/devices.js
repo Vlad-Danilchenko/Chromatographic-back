@@ -56,5 +56,3 @@ module.exports = {
   updateById,
   deleteById,
 };
-
-// 1.12 hour

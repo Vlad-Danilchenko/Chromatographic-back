@@ -1,44 +1,26 @@
-const devices = require("./devices");
+const express = require("express");
+const logger = require("morgan");
+const cors = require("cors");
 
-const invokeAction = async ({ action, id, model, status }) => {
-  switch (action) {
-    case "list":
-      const allChromatographs = await devices.getAll();
-      return console.log(allChromatographs);
+const devicesRouter = require("./routes/api/devices");
 
-    case "readById":
-      const aparatus = await devices.getById(id);
-      return console.log(aparatus);
+const app = express();
 
-    case "add":
-      const newDevice = await devices.add({ id, model, status });
-      return console.log(newDevice);
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-    case "updateById":
-      const updateDevice = await devices.updateById(id, { model, status });
-      return console.log(updateDevice);
+app.use(logger(formatsLogger));
+app.use(cors());
+app.use(express.json());
 
-    case "deleteById":
-      const deleteById = await devices.deleteById(id);
-      return console.log(deleteById);
-  }
-};
+app.use("/api/devices", devicesRouter);
 
-// invokeAction({ action: "list" });
-// invokeAction({ action: "readById", id: "LC-002" });
-// invokeAction({
-//   action: "add",
-//   id: "LC-003",
-//   model: "1100",
-//   status: "ready to work",
-// });
-// invokeAction({
-//   action: "updateById",
-//   id: "LC-002",
-//   model: "1100",
-//   status: "ready to work",
-// });
-invokeAction({
-  action: "deleteById",
-  id: "LC-002",
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
 });
+
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
+});
+
+module.exports = app;
