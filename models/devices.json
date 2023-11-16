@@ -1,16 +1,16 @@
 [
   {
-    "id": "LC-001",
+    "name": "LC-001",
     "model": "1100",
     "status": "ready to work"
   },
   {
-    "id": "LC-002",
+    "name": "LC-002",
     "model": "1100",
     "status": "ready to work"
   },
   {
-    "id": "LC-003",
+    "name": "LC-003",
     "model": "1100",
     "status": "ready to work"
   }

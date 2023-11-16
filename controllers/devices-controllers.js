@@ -1,16 +1,15 @@
-const devices = require("../models/devices");
-
+const { Device } = require("../models/device");
 const { HttpError } = require("../helpers");
 const ctrlWrapper = require("../utils/ctrlWrapper");
 
 const getAllDevices = async (req, res) => {
-  const result = await devices.getAll();
+  const result = await Device.find();
   res.json(result);
 };
 
 const getDeviceById = async (req, res) => {
   const { id } = req.params;
-  const result = await devices.getById(id);
+  const result = await Device.findById(id);
 
   if (!result) {
     throw HttpError(404, `Device with id: ${id} not found`);
@@ -20,13 +19,13 @@ const getDeviceById = async (req, res) => {
 };
 
 const addDevice = async (req, res) => {
-  const result = await devices.add(req.body);
+  const result = await Device.create(req.body);
   res.status(201).json(result);
 };
 
 const updateDevice = async (req, res) => {
   const { id } = req.params;
-  const result = await devices.updateById(id, req.body);
+  const result = await Device.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
     throw HttpError(404, `Device with id: ${id} not found`);
   }
@@ -35,7 +34,7 @@ const updateDevice = async (req, res) => {
 
 const deleteDevice = async (req, res) => {
   const { id } = req.params;
-  const result = await devices.deleteById(id);
+  const result = await Device.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404, `Device with id: ${id} not found`);
   }

@@ -1,6 +1,6 @@
 const express = require("express");
 const { validateBody } = require("../../utils");
-const schemas = require("../../schemas/devices");
+const { schemas } = require("../../models/device");
 
 const ctrl = require("../../controllers/devices-controllers");
 
