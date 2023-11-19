@@ -7,6 +7,7 @@ const deviceSchema = new Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     model: {
       type: String,
