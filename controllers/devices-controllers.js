@@ -3,7 +3,8 @@ const { HttpError } = require("../helpers");
 const ctrlWrapper = require("../utils/ctrlWrapper");
 
 const getAllDevices = async (req, res) => {
-  const result = await Device.find();
+  const { _id: owner } = req.user;
+  const result = await Device.find({ owner });
   res.json(result);
 };
 
@@ -19,7 +20,8 @@ const getDeviceById = async (req, res) => {
 };
 
 const addDevice = async (req, res) => {
-  const result = await Device.create(req.body);
+  const { _id: owner } = req.user;
+  const result = await Device.create({ ...req.body, owner });
   res.status(201).json(result);
 };
 
